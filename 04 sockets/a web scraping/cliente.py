@@ -1,6 +1,6 @@
 import threading, socket, sys
 
-class Client():
+class Cliente():
     def __init__(self, host="localhost", port=9090):
         self.sock = socket.socket()
         self.sock.connect((host, port))
@@ -31,4 +31,4 @@ class Client():
     def enviar_msj(self, url):
         self.sock.send(url.encode())
 
-client = Client()
+client = Cliente()

@@ -1,6 +1,6 @@
 import requests, bs4, lxml, socket, sys
 
-class Server():
+class Servidor():
     def __init__(self, host="localhost", port=9090):
         self.sock = socket.socket()
         self.sock.bind((host, port))
@@ -33,4 +33,4 @@ class Server():
 
         return str(array)
 
-server = Server()
+server = Servidor()
