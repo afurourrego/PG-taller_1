@@ -1,47 +1,34 @@
+import threading, socket, sys
 
-def run():
-    for i in range(1,100):
-        response = requests.get('https://xkcd.com/()'.format(i))
-        suop = BeautifulSoup(response.content, 'html.parser')
-        image_container = soup.find(id='comic')
+class Client():
+    def __init__(self, host="localhost", port=9090):
+        self.sock = socket.socket()
+        self.sock.connect((host, port))
 
-        image_url = image_container.find('ing')['src']
-        image_name = image_url.split('/')[-1]
-        print('Descargando la imagen ()'.format(image_name))
-        urllib.urlretrieve('https:()'.format(image_url), image_name)
+        msj_server = threading.Thread(target=self.msj_ser)
+        msj_server.setDaemon = True
+        msj_server.start()
 
-if __name__ == '__main__':
-    run()
+        url = input("\nOpciones:\n\n"
+                        "1. Webscraping YOUTUBE.\n"
+                        "2. Salir.\n\n"
+                    "Elige una opcion: ")
 
+        while True:
+            self.enviar_msj(url)
+            url = ""
 
+    def msj_ser(self):
+        try:
+            data = self.sock.recv(1024)
+            if data:
+                print("Resultado: ",data.decode())
+        except:
+            print("Error")
+            self.sock.close()
+            sys.exit()
 
+    def enviar_msj(self, url):
+        self.sock.send(url.encode())
 
-
-
-
-# import socket, string, sys, os, time
-#
-# clear = lambda: os.system('cls')
-#
-# def principal():
-#     mi_socket = socket.socket()
-#     mi_socket.connect(('127.0.0.1',9090))
-#
-#     print("[DICIONARIO BINARIO]")
-#     time.sleep(1)
-#     clear()
-#
-#     while True:
-#         mensaje = input("[]: ")
-#         mi_socket.send(mensaje.encode())
-#         if(mensaje == 'cerrar'):
-#             break
-#         recibido=mi_socket.recv(1024)
-#         print(recibido.decode())
-#
-#     print("adios")
-#     mi_socket.close()
-#
-#
-# if (__name__ == '__main__'):
-#     principal()
+client = Client()

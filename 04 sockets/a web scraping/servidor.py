@@ -1,20 +1,36 @@
-import socket
+import requests, bs4, lxml, socket, sys
 
-def principal():
-    mi_socket = socket.socket()
-    mi_socket.bind(("",9090))
-    mi_socket.listen(1)
-    conexion, direccion = mi_socket.accept()
+class Server():
+    def __init__(self, host="localhost", port=9090):
+        self.sock = socket.socket()
+        self.sock.bind((host, port))
+        self.sock.listen(1)
 
-    while True:
-        mensaje = conexion.recv(1024)
-        print("[]: "+mensaje.decode())
+        print("Conexion iniciada.")
+        conexion, direccion = self.sock.accept()
 
-        conexion.send("[]: ".encode() + str(mensaje).encode())
+        msj = conexion.recv(1024)
 
-    print("close")
-    conexion.close()
-    mi_socket.close()
+        while True:
+            if msj.decode() == '1':
+                resp = self.web('https://www.youtube.com/')
+                conexion.send(resp.encode())
+            else:
+                print("Cerrar")
+                self.sock.close()
+                sys.exit()
 
-if __name__ == '__main__':
-    principal()
+    def web(self, url):
+        try:
+            array = []
+            res = requests.get(url)
+            soup = bs4.BeautifulSoup(res.text, 'lxml')
+            for i in soup.select('h3'):
+                array.append(i.text)
+        except:
+            print("Error")
+            self.sock.close()
+
+        return str(array)
+
+server = Server()
