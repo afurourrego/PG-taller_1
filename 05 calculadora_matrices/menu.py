@@ -95,19 +95,23 @@ def one_matrix(matrix_1):
                 if case(2):
                     transpuesta(matrix_1)
                     break
-                if case(3):
-                    inversa(matrix_1)
+                if case(3): ###################
+                    if determinante(matrix_1) == 0:
+                        print("\nEl determinante de la matriz es cero, la matriz es no invertible")
+                    else:
+                        inversa(matrix_1)
                     break
-                if case(4):
-                    multiplicar(matrix_1)
+                if case(4): ###################
+                    num_multi = input("[ingrese numero]: ")
+                    multiplicar(matrix_1, num_multi)
                     break
-                if case(5):
+                if case(5): ###################
                     elevada(matrix_1)
                     break
-                if case(6):
+                if case(6): ###################
                     matriz_simetrica(matrix_1)
                     break
-                if case(7):
+                if case(7): ###################
                     matriz_identidad(matrix_1)
                     break
             break
@@ -141,8 +145,11 @@ def two_matrix(matrix_1, matrix_2):
             time.sleep(.500)
 
 def determinante(matrix_1):
+    global resultado_det
+    resultado_det = 0
 
     def lado_a(matrix_1, x, y):
+        global resultado_det
         resultado_temp = 1
         for pos in range(3):
             if x > 2:
@@ -152,9 +159,10 @@ def determinante(matrix_1):
             resultado_temp = resultado_temp * matrix_1[x][y]
             x = x+1
             y = y+1
-        return resultado_temp
+        resultado_det = resultado_det + resultado_temp
 
     def lado_b(matrix_1, x, y):
+        global resultado_det
         resultado_temp = 1
         determinante = 0
         for pos in range(3):
@@ -165,7 +173,7 @@ def determinante(matrix_1):
             resultado_temp = resultado_temp * matrix_1[x][y]
             x = x+1
             y = y-1
-        return resultado_temp
+        resultado_det = resultado_det - resultado_temp
 
     temp_1 = threading.Thread(target=lado_a, args=(matrix_1, 0, 0))
     temp_2 = threading.Thread(target=lado_a, args=(matrix_1, 0, 1))
@@ -173,21 +181,18 @@ def determinante(matrix_1):
     temp_4 = threading.Thread(target=lado_b, args=(matrix_1, 0, 2))
     temp_5 = threading.Thread(target=lado_b, args=(matrix_1, 0, 0))
     temp_6 = threading.Thread(target=lado_b, args=(matrix_1, 0, 1))
-
     temp_1.setDaemon = True
     temp_2.setDaemon = True
     temp_3.setDaemon = True
     temp_4.setDaemon = True
     temp_5.setDaemon = True
     temp_6.setDaemon = True
-
     temp_1.start()
     temp_2.start()
     temp_3.start()
     temp_4.start()
     temp_5.start()
     temp_6.start()
-
     temp_1.join()
     temp_2.join()
     temp_3.join()
@@ -195,22 +200,48 @@ def determinante(matrix_1):
     temp_5.join()
     temp_6.join()
 
-    print(temp_1)
-    print(temp_2)
-    print(temp_3)
-    print(temp_4)
-    print(temp_5)
-    print(temp_6)
+    return resultado_det
 
-    # temp_7 = temp_1 + temp_2 + temp_3 - temp_4 - temp_5 - temp_6
-    # return temp_7
+def transpuesta(matrix):
+    time.sleep(.500)
+    print("[MATRIZ TRANSPUESTA]\n")
 
-# def transpuesta(matrix_1):
-#     pass
-# def inversa(matrix_1):
-#     pass
-# def multiplicar(matrix_1):
-#     threads = list()
+    for x in range(size):
+        for y in range(size):
+            print('['+str(matrix[y][x]), end=']\t')
+        print()
+    print()
+
+def inversa(matrix_1):
+    pass
+
+def multiplicar(matrix, num_multi):
+
+    def multip(matrix, x, num_multi):
+        for pos in range(3):
+            matrix[x][pos-1] = int(matrix[x][pos-1]) * int(num_multi)
+            # print(matrix[x][pos-1])
+
+    temp_1 = threading.Thread(target=multip, args=(matrix_1, 0, num_multi))
+    temp_2 = threading.Thread(target=multip, args=(matrix_1, 1, num_multi))
+    temp_3 = threading.Thread(target=multip, args=(matrix_1, 2, num_multi))
+    temp_1.setDaemon = True
+    temp_2.setDaemon = True
+    temp_3.setDaemon = True
+    temp_1.start()
+    temp_2.start()
+    temp_3.start()
+    temp_1.join()
+    temp_2.join()
+    temp_3.join()
+
+    print("[MATRIZ MULTIPLICADA POR "+ str(num_multi) +"]\n")
+    for x in range(size):
+        for y in range(size):
+            print('['+str(matrix[x][y]), end=']\t')
+        print()
+    print()
+
 #
 #     num = input("Multiplicar por: ")
 #     for x in range(x_size):
