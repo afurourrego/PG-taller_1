@@ -93,10 +93,7 @@ def one_matrix(matrix_1):
                     print("\n [DETERMINANTE]: " + str(determinante(matrix_1)))
                     break
                 if case(2):
-                    temp = threading.Thread(target=transpuesta, args=[matrix_1])
-                    temp.setDaemon = True
-                    temp.start()
-                    temp.join()
+                    print_matrix(transpuesta(matrix_1), "[TRANSPUESTA]")
                     break
                 if case(3): ###################
                     if determinante(matrix_1) == 0:
@@ -210,6 +207,7 @@ def determinante(matrix_1):
     return resultado_det
 
 def transpuesta(matrix):
+    
     time.sleep(.500)
     print("[MATRIZ TRANSPUESTA]\n")
 
@@ -225,15 +223,15 @@ def inversa(matrix_1): #incompleto
 
     resultado_det = determinante(matrix_1)
 
-    matrix_temp[0][0] =  1 * ((int(matrix_1[2][2]) * int(matrix_1[2][2])) - (int(matrix_1[2][2]) * int(matrix_1[2][2])))
-	# matrix_temp[0][1]=(-1 *((int(matrix_1[1][0])*int(matrix_1[2][2]))-(int(matrix_1[1][2])*int(matrix_1[2][0]))))
-	# matrix_temp[0][2]=( 1 *((int(matrix_1[1][0])*int(matrix_1[2][1]))-(int(matrix_1[1][1])*int(matrix_1[2][0]))))
-	# matrix_temp[1][0]=(-1 *((int(matrix_1[0][1])*int(matrix_1[2][2]))-(int(matrix_1[0][2])*int(matrix_1[2][1]))))
-	# matrix_temp[1][1]=( 1 *((int(matrix_1[0][0])*int(matrix_1[2][2]))-(int(matrix_1[0][2])*int(matrix_1[2][0]))))
-	# matrix_temp[1][2]=(-1 *((int(matrix_1[0][0])*int(matrix_1[2][1]))-(int(matrix_1[0][1])*int(matrix_1[2][0]))))
-	# matrix_temp[2][0]=( 1 *((int(matrix_1[0][1])*int(matrix_1[1][2]))-(int(matrix_1[0][2])*int(matrix_1[1][1]))))
-	# matrix_temp[2][1]=(-1 *((int(matrix_1[0][0])*int(matrix_1[1][2]))-(int(matrix_1[0][2])*int(matrix_1[1][0]))))
-	# matrix_temp[2][2]=( 1 *((int(matrix_1[0][0])*int(matrix_1[1][1]))-(int(matrix_1[0][1])*int(matrix_1[1][0]))))
+    matrix_temp[0][0] =  1 * ((int(matrix_1[1][1]) * int(matrix_1[2][2])) - (int(matrix_1[1][2]) * int(matrix_1[2][1])))
+    matrix_temp[0][1] = -1 * ((int(matrix_1[0][1]) * int(matrix_1[2][2])) - (int(matrix_1[2][1]) * int(matrix_1[0][2])))
+    matrix_temp[0][2] =  1 * ((int(matrix_1[0][1]) * int(matrix_1[1][2])) - (int(matrix_1[1][1]) * int(matrix_1[0][2])))
+    matrix_temp[1][0] = -1 * ((int(matrix_1[1][0]) * int(matrix_1[2][2])) - (int(matrix_1[2][0]) * int(matrix_1[1][2])))
+    matrix_temp[1][1] =  1 * ((int(matrix_1[0][0]) * int(matrix_1[2][2])) - (int(matrix_1[2][0]) * int(matrix_1[0][2])))
+    matrix_temp[1][2] = -1 * ((int(matrix_1[0][0]) * int(matrix_1[1][2])) - (int(matrix_1[1][0]) * int(matrix_1[0][2])))
+    matrix_temp[2][0] =  1 * ((int(matrix_1[1][0]) * int(matrix_1[2][1])) - (int(matrix_1[2][0]) * int(matrix_1[1][1])))
+    matrix_temp[2][1] = -1 * ((int(matrix_1[0][0]) * int(matrix_1[2][1])) - (int(matrix_1[2][0]) * int(matrix_1[0][1])))
+    matrix_temp[2][2] =  1 * ((int(matrix_1[0][0]) * int(matrix_1[1][1])) - (int(matrix_1[1][0]) * int(matrix_1[0][1])))
 
     for x in range(3):
         for y in range(3):
