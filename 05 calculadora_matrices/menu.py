@@ -137,7 +137,7 @@ def two_matrix(matrix_1, matrix_2):
             option = int(option)
             while switch(option):
                 if case(1):
-                    multiplicar_ab(matrix_1, matrix_2)
+                    print_matrix(multiplicar_ab(matrix_1, matrix_2), "[A*B]")
                     break
                 if case(2):
                     print_matrix(restar_ab(matrix_1, matrix_2), "[A-B]")
@@ -332,16 +332,86 @@ def matriz_identidad(matrix):
         print("[NO ES IDENTICA]")
 
 
-def multiplicar_ab(matrix_1, matrix_2):
+def multiplicar_ab(matrix_1, matrix_2): #incompleto
     global matrix_3
     matrix_3 = matrix_1
-    def multi(matrix_1, matrix_2):
-        for x in range(3):
-            for y in range(3):
-                matrix_3[x-1][y-1] = (int(matrix_1[x][y]) * int(matrix_2[x][y])) + (int(matrix_1[x][1]) * int(matrix_2[][])) + (int(matrix_1[x][2]) * int(matrix_2[][]))
 
-                matrix[x][y] = (int(matrix_temp1[0][y]) * int(matrix_temp2[x][0])) + (int(matrix_temp1[1][y]) * int(matrix_temp2[x][1])) + (int(matrix_temp1[2][y]) * int(matrix_temp2[x][2]))
+    def multi_00(matrix_1, matrix_2):
+        matrix_3[0][0] = (int(matrix_1[0][0]) * int(matrix_2[0][0]))   +   (int(matrix_1[0][1]) * int(matrix_2[1][0]))   +   (int(matrix_1[0][2]) * int(matrix_2[2][0]))
+        print(matrix_3[0][0])
+    def multi_01(matrix_1, matrix_2):
+        matrix_3[0][1] = (int(matrix_1[0][0]) * int(matrix_2[0][1]))   +   (int(matrix_1[0][1]) * int(matrix_2[1][1]))   +   (int(matrix_1[0][2]) * int(matrix_2[2][1]))
+        print(matrix_3[0][1])
+    def multi_02(matrix_1, matrix_2):
+        matrix_3[0][2] = (int(matrix_1[0][0]) * int(matrix_2[0][2]))   +   (int(matrix_1[0][1]) * int(matrix_2[1][2]))   +   (int(matrix_1[0][2]) * int(matrix_2[2][2]))
+        print(matrix_3[0][2])
 
+    def multi_10(matrix_1, matrix_2):
+        matrix_3[1][0] = (int(matrix_1[1][0]) * int(matrix_2[0][0]))   +   (int(matrix_1[1][1]) * int(matrix_2[1][0]))   +   (int(matrix_1[1][2]) * int(matrix_2[2][0]))
+        print(matrix_3[1][0])
+    def multi_11(matrix_1, matrix_2):
+        matrix_3[1][1] = (int(matrix_1[1][0]) * int(matrix_2[0][1]))   +   (int(matrix_1[1][1]) * int(matrix_2[1][1]))   +   (int(matrix_1[1][2]) * int(matrix_2[2][1]))
+        print(matrix_3[1][1])
+    def multi_12(matrix_1, matrix_2):
+        matrix_3[1][2] = (int(matrix_1[1][0]) * int(matrix_2[0][2]))   +   (int(matrix_1[1][1]) * int(matrix_2[1][2]))   +   (int(matrix_1[1][2]) * int(matrix_2[2][2]))
+        print(matrix_3[1][2])
+
+    def multi_20(matrix_1, matrix_2):
+        matrix_3[2][0] = (int(matrix_1[2][0]) * int(matrix_2[0][0]))   +   (int(matrix_1[2][1]) * int(matrix_2[1][0]))   +   (int(matrix_1[2][2]) * int(matrix_2[2][0]))
+        print(matrix_3[2][0])
+    def multi_21(matrix_1, matrix_2):
+        matrix_3[2][1] = (int(matrix_1[2][0]) * int(matrix_2[0][1]))   +   (int(matrix_1[2][1]) * int(matrix_2[1][1]))   +   (int(matrix_1[2][2]) * int(matrix_2[2][1]))
+        print(matrix_3[2][1])
+    def multi_22(matrix_1, matrix_2):
+        matrix_3[2][2] = (int(matrix_1[2][0]) * int(matrix_2[0][2]))   +   (int(matrix_1[2][1]) * int(matrix_2[1][2]))   +   (int(matrix_1[2][2]) * int(matrix_2[2][2]))
+        print(matrix_3[2][2])
+
+    multi_00(matrix_1, matrix_2)
+    multi_01(matrix_1, matrix_2)
+    multi_02(matrix_1, matrix_2)
+    multi_10(matrix_1, matrix_2)
+    multi_11(matrix_1, matrix_2)
+    multi_12(matrix_1, matrix_2)
+    multi_20(matrix_1, matrix_2)
+    multi_21(matrix_1, matrix_2)
+    multi_22(matrix_1, matrix_2)
+    # temp_1 = threading.Thread(target=multi_00, args=(matrix_1, matrix_2))
+    # temp_2 = threading.Thread(target=multi_01, args=(matrix_1, matrix_2))
+    # temp_3 = threading.Thread(target=multi_02, args=(matrix_1, matrix_2))
+    # temp_4 = threading.Thread(target=multi_10, args=(matrix_1, matrix_2))
+    # temp_5 = threading.Thread(target=multi_11, args=(matrix_1, matrix_2))
+    # temp_6 = threading.Thread(target=multi_12, args=(matrix_1, matrix_2))
+    # temp_7 = threading.Thread(target=multi_20, args=(matrix_1, matrix_2))
+    # temp_8 = threading.Thread(target=multi_21, args=(matrix_1, matrix_2))
+    # temp_9 = threading.Thread(target=multi_22, args=(matrix_1, matrix_2))
+    # temp_1.setDaemon = True
+    # temp_2.setDaemon = True
+    # temp_3.setDaemon = True
+    # temp_4.setDaemon = True
+    # temp_5.setDaemon = True
+    # temp_6.setDaemon = True
+    # temp_7.setDaemon = True
+    # temp_8.setDaemon = True
+    # temp_9.setDaemon = True
+    # temp_1.start()
+    # temp_2.start()
+    # temp_3.start()
+    # temp_4.start()
+    # temp_5.start()
+    # temp_6.start()
+    # temp_7.start()
+    # temp_8.start()
+    # temp_9.start()
+    # temp_1.join()
+    # temp_2.join()
+    # temp_3.join()
+    # temp_4.join()
+    # temp_5.join()
+    # temp_6.join()
+    # temp_7.join()
+    # temp_8.join()
+    # temp_9.join()
+    return matrix_3
 
 def restar_ab(matrix_1, matrix_2):
 
