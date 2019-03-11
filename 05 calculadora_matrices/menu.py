@@ -93,7 +93,10 @@ def one_matrix(matrix_1):
                     print("\n [DETERMINANTE]: " + str(determinante(matrix_1)))
                     break
                 if case(2):
-                    transpuesta(matrix_1)
+                    temp = threading.Thread(target=transpuesta, args=[matrix_1])
+                    temp.setDaemon = True
+                    temp.start()
+                    temp.join()
                     break
                 if case(3): ###################
                     if determinante(matrix_1) == 0:
@@ -101,15 +104,19 @@ def one_matrix(matrix_1):
                     else:
                         inversa(matrix_1)
                     break
-                if case(4): ###################
+                if case(4):
                     num_multi = input("[ingrese numero]: ")
-                    multiplicar(matrix_1, num_multi)
+                    print_matrix(multiplicar(matrix_1, num_multi), "[MULTIPLICADA POR "+ str(num_multi) +"]")
                     break
-                if case(5): ###################
-                    elevada(matrix_1)
+                if case(5):
+                    num_elev = input("[ingrese numero]: ")
+                    print_matrix(elevada(matrix_1, num_elev), "[ELEVADA]")
                     break
-                if case(6): ###################
-                    matriz_simetrica(matrix_1)
+                if case(6):
+                    temp = threading.Thread(target=matriz_simetrica, args=[matrix_1])
+                    temp.setDaemon = True
+                    temp.start()
+                    temp.join()
                     break
                 if case(7): ###################
                     matriz_identidad(matrix_1)
@@ -130,13 +137,13 @@ def two_matrix(matrix_1, matrix_2):
             option = int(option)
             while switch(option):
                 if case(1):
-                    multiplicar_ab()
+                    multiplicar_ab(matrix_1, matrix_2)
                     break
                 if case(2):
-                    restar_ab()
+                    print_matrix(restar_ab(matrix_1, matrix_2), "[A-B]")
                     break
                 if case(3):
-                    dividir_ab()
+                    dividir_ab(matrix_1, matrix_2)
                     break
             break
         except ValueError:
@@ -212,7 +219,7 @@ def transpuesta(matrix):
         print()
     print()
 
-def inversa(matrix_1):
+def inversa(matrix_1): #incompleto
     pass
 
 def multiplicar(matrix, num_multi):
@@ -220,7 +227,6 @@ def multiplicar(matrix, num_multi):
     def multip(matrix, x, num_multi):
         for pos in range(3):
             matrix[x][pos-1] = int(matrix[x][pos-1]) * int(num_multi)
-            # print(matrix[x][pos-1])
 
     temp_1 = threading.Thread(target=multip, args=(matrix_1, 0, num_multi))
     temp_2 = threading.Thread(target=multip, args=(matrix_1, 1, num_multi))
@@ -234,43 +240,130 @@ def multiplicar(matrix, num_multi):
     temp_1.join()
     temp_2.join()
     temp_3.join()
+    return matrix
 
-    print("[MATRIZ MULTIPLICADA POR "+ str(num_multi) +"]\n")
+def elevada(matrix, num_elev): #incompleto
+    global matrix_temp1, matrix_temp2
+    matrix_temp1 = matrix
+    matrix_temp2 = matrix
+
+    def elevar_pos(matrix, x, y):
+        global matrix_temp1, matrix_temp2
+        print(int(matrix[x][y]))
+        # for pos in range(3)
+        matrix[x][y] = (int(matrix_temp1[0][y]) * int(matrix_temp2[x][0])) + (int(matrix_temp1[1][y]) * int(matrix_temp2[x][1])) + (int(matrix_temp1[2][y]) * int(matrix_temp2[x][2]))
+
+    for pos in range(int(num_elev)-1):
+        temp_1 = threading.Thread(target=elevar_pos, args=(matrix, 0, 0))
+        temp_2 = threading.Thread(target=elevar_pos, args=(matrix, 0, 1))
+        temp_3 = threading.Thread(target=elevar_pos, args=(matrix, 0, 2))
+        temp_4 = threading.Thread(target=elevar_pos, args=(matrix, 1, 0))
+        temp_5 = threading.Thread(target=elevar_pos, args=(matrix, 1, 1))
+        temp_6 = threading.Thread(target=elevar_pos, args=(matrix, 1, 2))
+        temp_7 = threading.Thread(target=elevar_pos, args=(matrix, 2, 0))
+        temp_8 = threading.Thread(target=elevar_pos, args=(matrix, 2, 1))
+        temp_9 = threading.Thread(target=elevar_pos, args=(matrix, 2, 2))
+        temp_1.setDaemon = True
+        temp_2.setDaemon = True
+        temp_3.setDaemon = True
+        temp_4.setDaemon = True
+        temp_5.setDaemon = True
+        temp_6.setDaemon = True
+        temp_7.setDaemon = True
+        temp_8.setDaemon = True
+        temp_9.setDaemon = True
+        temp_1.start()
+        temp_2.start()
+        temp_3.start()
+        temp_4.start()
+        temp_5.start()
+        temp_6.start()
+        temp_7.start()
+        temp_8.start()
+        temp_9.start()
+        temp_1.join()
+        temp_2.join()
+        temp_3.join()
+        temp_4.join()
+        temp_5.join()
+        temp_6.join()
+        temp_7.join()
+        temp_8.join()
+        temp_9.join()
+        matrix_temp2 = matrix
+
+    return matrix
+
+def matriz_simetrica(matrix):
+
+    simetrica = 0
     for x in range(size):
         for y in range(size):
-            print('['+str(matrix[x][y]), end=']\t')
-        print()
-    print()
+            if matrix[y][x] != matrix[x][y]:
+                simetrica = 1
+    if simetrica == 1:
+        print("\n\n[NO ES SIMETRICA]")
+    else:
+        print("\n\n[ES SIMETRICA]")
 
-#
-#     num = input("Multiplicar por: ")
-#     for x in range(x_size):
-#         for y in range(y_size):
-#             # matrix = threading.Thread(target=)
-#             print('['+str(matrix[x][y]), end=']\t')
-#
-#
-#     threads = list()
-#
-#     for i in range(3):
-#         t = threading.Thread(target=trabajo)
-#         threads.append(t)
-#         t.start()
-#
-#     print(threads)
-#     print_matrix(x_size, y_size, matrix, letter)
-#
-# def elevada(matrix_1):
-#     pass
-# def matriz_simetrica(matrix_1):
-#     pass
-# def matriz_identidad(matrix_1):
-#     pass
-# def multiplicar_ab():
-#     pass
-# def restar_ab():
-#     pass
-# def dividir_ab():
+def matriz_identidad(matrix):
+    global identica
+    identica = 0
+
+    def identidad(matrix):
+        global identica
+        for x in range(3):
+            for y in range(3):
+                if matrix[x-1][y-1] == 0:
+                    identica = 1
+                else:
+                    identica = 0
+                if matrix[0][0] == 1 or matrix[1][1] == 1 or matrix[2][2] == 1:
+                    identica = 1
+
+    temp = threading.Thread(target=identidad, args=[matrix])
+    temp.setDaemon = True
+    temp.start()
+    temp.join()
+
+    if identica == 1:
+        print("[ES IDENTICA]")
+    else:
+        print("[NO ES IDENTICA]")
+
+
+def multiplicar_ab(matrix_1, matrix_2):
+    global matrix_3
+    matrix_3 = matrix_1
+    def multi(matrix_1, matrix_2):
+        for x in range(3):
+            for y in range(3):
+                matrix_3[x-1][y-1] = (int(matrix_1[x][y]) * int(matrix_2[x][y])) + (int(matrix_1[x][1]) * int(matrix_2[][])) + (int(matrix_1[x][2]) * int(matrix_2[][]))
+
+                matrix[x][y] = (int(matrix_temp1[0][y]) * int(matrix_temp2[x][0])) + (int(matrix_temp1[1][y]) * int(matrix_temp2[x][1])) + (int(matrix_temp1[2][y]) * int(matrix_temp2[x][2]))
+
+
+def restar_ab(matrix_1, matrix_2):
+
+    def restar(matrix_1, matrix_2, x):
+        for pos in range(3):
+            matrix_1[x][pos-1] = int(matrix_1[x][pos-1]) - int(matrix_2[x][pos-1])
+
+    temp_1 = threading.Thread(target=restar, args=(matrix_1, matrix_2, 0))
+    temp_2 = threading.Thread(target=restar, args=(matrix_1, matrix_2, 1))
+    temp_3 = threading.Thread(target=restar, args=(matrix_1, matrix_2, 2))
+    temp_1.setDaemon = True
+    temp_2.setDaemon = True
+    temp_3.setDaemon = True
+    temp_1.start()
+    temp_2.start()
+    temp_3.start()
+    temp_1.join()
+    temp_2.join()
+    temp_3.join()
+    return matrix_1
+
+# def dividir_ab(matrix_1, matrix_2):
 #     pass
 
 
