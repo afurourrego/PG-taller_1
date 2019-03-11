@@ -131,7 +131,7 @@ def two_matrix(matrix_1, matrix_2):
     while True:
         print("1.[A x B]")
         print("2.[A - B]")
-        print("3.[A / B]")
+        print("3.[A + B]")
         try:
             option = input("\nElige tu opción: ")
             option = int(option)
@@ -143,7 +143,7 @@ def two_matrix(matrix_1, matrix_2):
                     print_matrix(restar_ab(matrix_1, matrix_2), "[A-B]")
                     break
                 if case(3):
-                    dividir_ab(matrix_1, matrix_2)
+                    print_matrix(sumar_ab(matrix_1, matrix_2), "[A+B]")
                     break
             break
         except ValueError:
@@ -220,7 +220,26 @@ def transpuesta(matrix):
     print()
 
 def inversa(matrix_1): #incompleto
-    pass
+    global matrix_temp
+    matrix_temp = matrix_1
+
+    resultado_det = determinante(matrix_1)
+
+    matrix_temp[0][0] =  1 * ((int(matrix_1[2][2]) * int(matrix_1[2][2])) - (int(matrix_1[2][2]) * int(matrix_1[2][2])))
+	# matrix_temp[0][1]=(-1 *((int(matrix_1[1][0])*int(matrix_1[2][2]))-(int(matrix_1[1][2])*int(matrix_1[2][0]))))
+	# matrix_temp[0][2]=( 1 *((int(matrix_1[1][0])*int(matrix_1[2][1]))-(int(matrix_1[1][1])*int(matrix_1[2][0]))))
+	# matrix_temp[1][0]=(-1 *((int(matrix_1[0][1])*int(matrix_1[2][2]))-(int(matrix_1[0][2])*int(matrix_1[2][1]))))
+	# matrix_temp[1][1]=( 1 *((int(matrix_1[0][0])*int(matrix_1[2][2]))-(int(matrix_1[0][2])*int(matrix_1[2][0]))))
+	# matrix_temp[1][2]=(-1 *((int(matrix_1[0][0])*int(matrix_1[2][1]))-(int(matrix_1[0][1])*int(matrix_1[2][0]))))
+	# matrix_temp[2][0]=( 1 *((int(matrix_1[0][1])*int(matrix_1[1][2]))-(int(matrix_1[0][2])*int(matrix_1[1][1]))))
+	# matrix_temp[2][1]=(-1 *((int(matrix_1[0][0])*int(matrix_1[1][2]))-(int(matrix_1[0][2])*int(matrix_1[1][0]))))
+	# matrix_temp[2][2]=( 1 *((int(matrix_1[0][0])*int(matrix_1[1][1]))-(int(matrix_1[0][1])*int(matrix_1[1][0]))))
+
+    for x in range(3):
+        for y in range(3):
+            matrix_temp[x][y] = matrix_temp[x][y] * (1/resultado_det)
+
+    print_matrix(matrix_temp, "[INVERSA]")
 
 def multiplicar(matrix, num_multi):
 
@@ -248,10 +267,14 @@ def elevada(matrix, num_elev): #incompleto
     matrix_temp2 = matrix
 
     def elevar_pos(matrix, x, y):
-        global matrix_temp1, matrix_temp2
+        global matrix_temp1, matrix_temp2, temp
         print(int(matrix[x][y]))
-        # for pos in range(3)
-        matrix[x][y] = (int(matrix_temp1[0][y]) * int(matrix_temp2[x][0])) + (int(matrix_temp1[1][y]) * int(matrix_temp2[x][1])) + (int(matrix_temp1[2][y]) * int(matrix_temp2[x][2]))
+        temp1 = int(matrix_temp1[0][y]) * int(matrix_temp2[x][0])
+        temp2 = int(matrix_temp1[1][y]) * int(matrix_temp2[x][1])
+        temp3 = int(matrix_temp1[2][y]) * int(matrix_temp2[x][2])
+
+        matrix[x][y] = temp1 + temp2 + temp3
+        # matrix[x][y] = (int(matrix_temp1[0][y]) * int(matrix_temp2[x][0])) + (int(matrix_temp1[1][y]) * int(matrix_temp2[x][1])) + (int(matrix_temp1[2][y]) * int(matrix_temp2[x][2]))
 
     for pos in range(int(num_elev)-1):
         temp_1 = threading.Thread(target=elevar_pos, args=(matrix, 0, 0))
@@ -433,8 +456,25 @@ def restar_ab(matrix_1, matrix_2):
     temp_3.join()
     return matrix_1
 
-# def dividir_ab(matrix_1, matrix_2):
-#     pass
+def sumar_ab(matrix_1, matrix_2):
+
+    def restar(matrix_1, matrix_2, x):
+        for pos in range(3):
+            matrix_1[x][pos-1] = int(matrix_1[x][pos-1]) + int(matrix_2[x][pos-1])
+
+    temp_1 = threading.Thread(target=restar, args=(matrix_1, matrix_2, 0))
+    temp_2 = threading.Thread(target=restar, args=(matrix_1, matrix_2, 1))
+    temp_3 = threading.Thread(target=restar, args=(matrix_1, matrix_2, 2))
+    temp_1.setDaemon = True
+    temp_2.setDaemon = True
+    temp_3.setDaemon = True
+    temp_1.start()
+    temp_2.start()
+    temp_3.start()
+    temp_1.join()
+    temp_2.join()
+    temp_3.join()
+    return matrix_1
 
 
 #SWITCH
