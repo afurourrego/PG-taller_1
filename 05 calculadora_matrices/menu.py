@@ -207,7 +207,7 @@ def determinante(matrix_1):
     return resultado_det
 
 def transpuesta(matrix):
-    
+
     time.sleep(.500)
     print("[MATRIZ TRANSPUESTA]\n")
 
@@ -217,7 +217,7 @@ def transpuesta(matrix):
         print()
     print()
 
-def inversa(matrix_1): #incompleto
+def inversa(matrix_1): #terminado pero algo genera error en los calculos
     global matrix_temp
     matrix_temp = matrix_1
 
@@ -259,7 +259,7 @@ def multiplicar(matrix, num_multi):
     temp_3.join()
     return matrix
 
-def elevada(matrix, num_elev): #incompleto
+def elevada(matrix, num_elev): #terminado pero algo genera error en los calculos
     global matrix_temp1, matrix_temp2
     matrix_temp1 = matrix
     matrix_temp2 = matrix
@@ -353,7 +353,7 @@ def matriz_identidad(matrix):
         print("[NO ES IDENTICA]")
 
 
-def multiplicar_ab(matrix_1, matrix_2): #incompleto
+def multiplicar_ab(matrix_1, matrix_2): #terminado pero algo genera error en los calculos
     global matrix_3
     matrix_3 = matrix_1
 
