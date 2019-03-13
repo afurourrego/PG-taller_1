@@ -9,21 +9,21 @@ def CREATE_DB(nombre):
     cursor = conexion.cursor()
     cursor.execute("CREATE DATABASE IF NOT EXISTS "+nombre_db)
 
-def CREATE_TABLE(table_db, column_table_db):
+def CREATE_TABLE(table_db, column_table_db, precio_db):
     global nombre_db
     conexion = mysql.connector.connect( host="localhost", user="root", passwd="", database=nombre_db)
     cursor = conexion.cursor()
-    cursor.execute("CREATE TABLE IF NOT EXISTS "+table_db+" (id INT AUTO_INCREMENT PRIMARY KEY, "+column_table_db+" VARCHAR(255))")
+    cursor.execute("CREATE TABLE IF NOT EXISTS "+table_db+" (id INT AUTO_INCREMENT PRIMARY KEY, "+column_table_db+" VARCHAR(255), "+precio_db+" INT(10))")
 
-def INSERT_DB(table_db, column_table_db, message_db):
+def INSERT_DB(table_db, column_table_db, message_db, precio_db, valor_db):
     global nombre_db
     conexion = mysql.connector.connect( host="localhost", user="root", passwd="", database=nombre_db)
     cursor = conexion.cursor()
-    cursor.execute("INSERT INTO "+table_db+" ("+column_table_db+") VALUES('"+message_db+"')")
+    cursor.execute("INSERT INTO "+table_db+" ("+column_table_db+", "+precio_db+") VALUES('"+message_db+"', '"+valor_db+"')")
     conexion.commit()
     conexion.close()
 
-def SELECT_DB(table_db, column_table_db):
+def SELECT_DB(table_db):
     global nombre_db
     conexion = mysql.connector.connect( host="localhost", user="root", passwd="", database=nombre_db)
     cursor = conexion.cursor()
