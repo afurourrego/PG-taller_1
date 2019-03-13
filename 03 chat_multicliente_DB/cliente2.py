@@ -19,8 +19,10 @@ class Cliente():
         time.sleep(.500)
 
         DB.CREATE_DB("python_db")
-        DB.CREATE_TABLE("chat_history")
-        result = DB.SELECT_DB()
+        DB.CREATE_TABLE("chat_history", "message")
+        DB.CREATE_TABLE("users", "user")
+        DB.INSERT_DB("users", "user", nombre)
+        result = DB.SELECT_DB("chat_history", "message")
         for x in result:
           print(x[1])
 

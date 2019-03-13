@@ -1,8 +1,6 @@
 import mysql.connector
 
 nombre_db = ''
-table_db = ''
-column_table_db = 'message'
 
 def CREATE_DB(nombre):
     global nombre_db
@@ -11,23 +9,22 @@ def CREATE_DB(nombre):
     cursor = conexion.cursor()
     cursor.execute("CREATE DATABASE IF NOT EXISTS "+nombre_db)
 
-def CREATE_TABLE(table):
-    global table_db, column_table_db
-    table_db = table
+def CREATE_TABLE(table_db, column_table_db):
+    global nombre_db
     conexion = mysql.connector.connect( host="localhost", user="root", passwd="", database=nombre_db)
     cursor = conexion.cursor()
     cursor.execute("CREATE TABLE IF NOT EXISTS "+table_db+" (id INT AUTO_INCREMENT PRIMARY KEY, "+column_table_db+" VARCHAR(255))")
 
-def INSERT_DB(message_db):
-    global nombre_db, table_db, column_table_db
+def INSERT_DB(table_db, column_table_db, message_db):
+    global nombre_db
     conexion = mysql.connector.connect( host="localhost", user="root", passwd="", database=nombre_db)
     cursor = conexion.cursor()
     cursor.execute("INSERT INTO "+table_db+" ("+column_table_db+") VALUES('"+message_db+"')")
     conexion.commit()
     conexion.close()
 
-def SELECT_DB():
-    global nombre_db, table_db, column_table_db
+def SELECT_DB(table_db, column_table_db):
+    global nombre_db
     conexion = mysql.connector.connect( host="localhost", user="root", passwd="", database=nombre_db)
     cursor = conexion.cursor()
     cursor.execute("SELECT * FROM "+table_db)
@@ -37,9 +34,9 @@ def SELECT_DB():
     #   print(x[1])
 
 # DB.CREATE_DB("python_db")
-# DB.CREATE_TABLE("chat_history")
-# DB.INSERT_DB("hola k ase")
-# DB.SELECT_DB()
+# DB.CREATE_TABLE("users", "user")
+# DB.INSERT_DB("users", "user", "nombre")
+# DB.SELECT_DB("chat_history", "message")
 
 
 

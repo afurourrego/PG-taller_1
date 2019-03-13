@@ -4,7 +4,7 @@ import sys
 import DB
 
 DB.CREATE_DB("python_db")
-DB.CREATE_TABLE("chat_history")
+DB.CREATE_TABLE("chat_history", "message")
 
 class Servidor():
     def __init__(self, host="localhost", puerto=9999):
@@ -55,7 +55,7 @@ class Servidor():
                         pass
 
     def mensaje_todos(self, mensaje, cliente):
-        DB.INSERT_DB(mensaje.decode())
+        DB.INSERT_DB("chat_history", "message", mensaje.decode())
         for c in self.clientes:
             try:
                 if c != cliente:
