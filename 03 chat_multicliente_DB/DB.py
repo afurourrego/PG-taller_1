@@ -27,7 +27,7 @@ def INSERT_DB(message_db):
     conexion.close()
 
 def SELECT_DB():
-    global nombre_db, table_db
+    global nombre_db, table_db, column_table_db
     conexion = mysql.connector.connect( host="localhost", user="root", passwd="", database=nombre_db)
     cursor = conexion.cursor()
     cursor.execute("SELECT * FROM "+table_db)

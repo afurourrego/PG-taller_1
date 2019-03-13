@@ -1,4 +1,5 @@
 import socket, threading, sys, os, time
+import DB
 
 class Cliente():
     def __init__(self, host="localhost", puerto=9999):
@@ -14,9 +15,16 @@ class Cliente():
         global nombre
         nombre = input("[INGRESE SU NOMBRE]: ")
         print("{{recibido}}")
+        clear()
         time.sleep(.500)
 
-        clear()
+        DB.CREATE_DB("python_db")
+        DB.CREATE_TABLE("chat_history")
+        result = DB.SELECT_DB()
+        for x in result:
+          print(x[1])
+
+
 
         while True:
             mensaje = input()
