@@ -21,10 +21,20 @@ class Cliente():
         DB.CREATE_DB("python_db")
         DB.CREATE_TABLE("chat_history", "message")
         DB.CREATE_TABLE("users", "user")
-        DB.INSERT_DB("users", "user", nombre)
-        result = DB.SELECT_DB("chat_history", "message")
-        for x in result:
-          print(x[1])
+
+        users = DB.SELECT_DB("users", "user")
+        user_exist = 0
+
+        for user in users:
+          if user[1] == nombre:
+              user_exist = 1
+
+        if user_exist == 0:
+            DB.INSERT_DB("users", "user", nombre)
+        else:
+            result = DB.SELECT_DB("chat_history", "message")
+            for x in result:
+              print(x[1])
 
 
 
