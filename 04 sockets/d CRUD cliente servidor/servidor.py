@@ -11,6 +11,7 @@ class Servidor():
         self.mi_socket.bind(("",9090))
         self.mi_socket.listen(1)
         conexion, direccion = self.mi_socket.accept()
+        # global mensaje
 
         while True:
             while True:
@@ -20,29 +21,33 @@ class Servidor():
                     if int(mensaje) > 4:
                         mensaje = "error"
                     mensaje = int(mensaje)
+                    break
                 except ValueError:
                     conexion.send("\n\n<<Opción Invalida>>\n\n".encode())
 
-            print("[]: "+mensaje.decode())
-            if(mensaje.decode() == '0'):
+            print("[]: "+str(mensaje))
+            if(mensaje == 0):
                 break
 
-            if(mensaje == '1'):
-                print("opcion 1")
-                # products = DB.SELECT_DB("tienda")
-                # for product in products:
-                #   print(product)
+            if(mensaje == 1):
+                products = DB.SELECT_DB("tienda")
+                conexion.send("\n<<Cargando presione ENTER>>\n".encode())
+                for product in products:
+                    conexion.send(("\n  [CODE]: "+str(product[0])).encode())
+                    conexion.send(("\n  [PRODUCTO]: "+str(product[1])).encode())
+                    conexion.send(("\n  [PRECIO]: $"+str(product[2])).encode())
+                    conexion.send("\n-------------------------------".encode())
 
-            if(mensaje == '2'):
+            if(mensaje == 2):
                 print("opcion 2")
 
-            if(mensaje == '3'):
+            if(mensaje == 3):
                 print("opcion 3")
 
-            if(mensaje == '4'):
+            if(mensaje == 4):
                 print("opcion 4")
             # conexion.send("{{recibido}}".encode())
-        print("close")
+        print("\n\n<<Presione 'ENTER' para salir>>\n\n")
         conexion.close()
         self.mi_socket.close()
 
