@@ -3,7 +3,6 @@ import DB
 
 DB.CREATE_DB("python_tienda_db")
 DB.CREATE_TABLE("tienda", "producto", "precio")
-# DB.INSERT_DB("tienda", "producto", "tomato", "precio", "1500")
 
 class Servidor():
     def __init__(self):
@@ -39,14 +38,40 @@ class Servidor():
                     conexion.send("\n-------------------------------".encode())
 
             if(mensaje == 2):
-                print("opcion 2")
+                conexion.send("[NOMBRE DEL PRODUCTO]: ".encode())
+                producto = conexion.recv(1024).decode()
+                conexion.send("[PRECIO DEL PRODUCTO]: ".encode())
+                precio = conexion.recv(1024).decode()
+                DB.INSERT_DB("tienda", "producto", str(producto), "precio", str(precio))
 
             if(mensaje == 3):
-                print("opcion 3")
+                conexion.send("[INGRESE EL CODIGO DEL PRODUCTO QUE DESEA EDITAR]".encode())
+                code = conexion.recv(1024).decode()
+                product = DB.SELECT_WHERE_DB("tienda", code)
+                print(product)
+                if product == []:
+                    print("nulo")
+                    conexion.send("[NO EXISTE ESTE PRODUCTO]".encode())
+                else:
+                    print("lleno")
+                    conexion.send("[NOMBRE DEL PRODUCTO]: ".encode())
+                    producto = conexion.recv(1024).decode()
+                    conexion.send("[PRECIO DEL PRODUCTO]: ".encode())
+                    precio = conexion.recv(1024).decode()
+
+                    if producto == ' ':
+                        print(product)
+                        producto =str(product[0][1])
+                    if precio == ' ':
+                        precio = str(product[0][2])
+
+                    DB.UPDATE_DB("tienda", "producto", str(producto), "precio", str(precio), code)
 
             if(mensaje == 4):
-                print("opcion 4")
-            # conexion.send("{{recibido}}".encode())
+                conexion.send("[INGRESE EL CODIGO DEL PRODUCTO QUE DESEA ELIMINAR]".encode())
+                code = conexion.recv(1024).decode()
+                DB.SELECT_WHERE_DB("tienda", code)
+
         print("\n\n<<Presione 'ENTER' para salir>>\n\n")
         conexion.close()
         self.mi_socket.close()
