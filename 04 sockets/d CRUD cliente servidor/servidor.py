@@ -70,7 +70,7 @@ class Servidor():
             if(mensaje == 4):
                 conexion.send("[INGRESE EL CODIGO DEL PRODUCTO QUE DESEA ELIMINAR]".encode())
                 code = conexion.recv(1024).decode()
-                DB.SELECT_WHERE_DB("tienda", code)
+                DB.DELETE_WHERE_DB("tienda", code)
 
         print("\n\n<<Presione 'ENTER' para salir>>\n\n")
         conexion.close()

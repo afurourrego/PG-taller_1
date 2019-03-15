@@ -49,15 +49,7 @@ def SELECT_WHERE_DB(table_db, code_db):
     result = cursor.fetchall()
     return result
 
-def SELECT_WHERE_DB(table_db, code_db):
-    global nombre_db
-    conexion = mysql.connector.connect( host="localhost", user="root", passwd="", database=nombre_db)
-    cursor = conexion.cursor()
-    cursor.execute("SELECT * FROM "+table_db+" WHERE id = "+code_db)
-    result = cursor.fetchall()
-    return result
-
-def SELECT_WHERE_DB(table_db, code_db):
+def DELETE_WHERE_DB(table_db, code_db):
     global nombre_db
     conexion = mysql.connector.connect( host="localhost", user="root", passwd="", database=nombre_db)
     cursor = conexion.cursor()
@@ -71,4 +63,4 @@ def SELECT_WHERE_DB(table_db, code_db):
 # DB.SELECT_DB("chat_history", "message")
 # DB.SELECT_WHERE_DB("tienda", code)
 # DB.UPDATE_DB("tienda", "producto", str(producto), "precio", str(precio), code)
-# DB.SELECT_WHERE_DB("tienda", code_db):
+# DB.DELETE_WHERE_DB("tienda", code_db):
