@@ -19,10 +19,6 @@ class Cliente():
             if(mensaje == '0'):
                 break
 
-            # recibido=self.mi_socket.recv(1024)
-            # print(recibido.decode())
-            # time.sleep(.500)
-            # clear()
 
         print("\n\n<<Presione 'ENTER' para salir>>\n\n")
         self.mi_socket.close()

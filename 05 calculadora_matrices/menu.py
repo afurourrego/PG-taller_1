@@ -387,51 +387,51 @@ def multiplicar_ab(matrix_1, matrix_2): #terminado pero algo genera error en los
         matrix_3[2][2] = (int(matrix_1[2][0]) * int(matrix_2[0][2]))   +   (int(matrix_1[2][1]) * int(matrix_2[1][2]))   +   (int(matrix_1[2][2]) * int(matrix_2[2][2]))
         print(matrix_3[2][2])
 
-    multi_00(matrix_1, matrix_2)
-    multi_01(matrix_1, matrix_2)
-    multi_02(matrix_1, matrix_2)
-    multi_10(matrix_1, matrix_2)
-    multi_11(matrix_1, matrix_2)
-    multi_12(matrix_1, matrix_2)
-    multi_20(matrix_1, matrix_2)
-    multi_21(matrix_1, matrix_2)
-    multi_22(matrix_1, matrix_2)
-    # temp_1 = threading.Thread(target=multi_00, args=(matrix_1, matrix_2))
-    # temp_2 = threading.Thread(target=multi_01, args=(matrix_1, matrix_2))
-    # temp_3 = threading.Thread(target=multi_02, args=(matrix_1, matrix_2))
-    # temp_4 = threading.Thread(target=multi_10, args=(matrix_1, matrix_2))
-    # temp_5 = threading.Thread(target=multi_11, args=(matrix_1, matrix_2))
-    # temp_6 = threading.Thread(target=multi_12, args=(matrix_1, matrix_2))
-    # temp_7 = threading.Thread(target=multi_20, args=(matrix_1, matrix_2))
-    # temp_8 = threading.Thread(target=multi_21, args=(matrix_1, matrix_2))
-    # temp_9 = threading.Thread(target=multi_22, args=(matrix_1, matrix_2))
-    # temp_1.setDaemon = True
-    # temp_2.setDaemon = True
-    # temp_3.setDaemon = True
-    # temp_4.setDaemon = True
-    # temp_5.setDaemon = True
-    # temp_6.setDaemon = True
-    # temp_7.setDaemon = True
-    # temp_8.setDaemon = True
-    # temp_9.setDaemon = True
-    # temp_1.start()
-    # temp_2.start()
-    # temp_3.start()
-    # temp_4.start()
-    # temp_5.start()
-    # temp_6.start()
-    # temp_7.start()
-    # temp_8.start()
-    # temp_9.start()
-    # temp_1.join()
-    # temp_2.join()
-    # temp_3.join()
-    # temp_4.join()
-    # temp_5.join()
-    # temp_6.join()
-    # temp_7.join()
-    # temp_8.join()
-    # temp_9.join()
+    # multi_00(matrix_1, matrix_2)
+    # multi_01(matrix_1, matrix_2)
+    # multi_02(matrix_1, matrix_2)
+    # multi_10(matrix_1, matrix_2)
+    # multi_11(matrix_1, matrix_2)
+    # multi_12(matrix_1, matrix_2)
+    # multi_20(matrix_1, matrix_2)
+    # multi_21(matrix_1, matrix_2)
+    # multi_22(matrix_1, matrix_2)
+    temp_1 = threading.Thread(target=multi_00, args=(matrix_1, matrix_2))
+    temp_2 = threading.Thread(target=multi_01, args=(matrix_1, matrix_2))
+    temp_3 = threading.Thread(target=multi_02, args=(matrix_1, matrix_2))
+    temp_4 = threading.Thread(target=multi_10, args=(matrix_1, matrix_2))
+    temp_5 = threading.Thread(target=multi_11, args=(matrix_1, matrix_2))
+    temp_6 = threading.Thread(target=multi_12, args=(matrix_1, matrix_2))
+    temp_7 = threading.Thread(target=multi_20, args=(matrix_1, matrix_2))
+    temp_8 = threading.Thread(target=multi_21, args=(matrix_1, matrix_2))
+    temp_9 = threading.Thread(target=multi_22, args=(matrix_1, matrix_2))
+    temp_1.setDaemon = True
+    temp_2.setDaemon = True
+    temp_3.setDaemon = True
+    temp_4.setDaemon = True
+    temp_5.setDaemon = True
+    temp_6.setDaemon = True
+    temp_7.setDaemon = True
+    temp_8.setDaemon = True
+    temp_9.setDaemon = True
+    temp_1.start()
+    temp_2.start()
+    temp_3.start()
+    temp_4.start()
+    temp_5.start()
+    temp_6.start()
+    temp_7.start()
+    temp_8.start()
+    temp_9.start()
+    temp_1.join()
+    temp_2.join()
+    temp_3.join()
+    temp_4.join()
+    temp_5.join()
+    temp_6.join()
+    temp_7.join()
+    temp_8.join()
+    temp_9.join()
     return matrix_3
 
 def restar_ab(matrix_1, matrix_2):
